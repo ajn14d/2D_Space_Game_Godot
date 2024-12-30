@@ -4,7 +4,7 @@ extends RigidBody2D
 @onready var earth = get_node("/root/SpaceGameplay/Earth/EarthGravity")  # Adjust the path to your EarthGravity node
 @onready var rope_area = get_node("/root/SpaceGameplay/PlayerShip/PinJoint2D/Rope/Area2D")  # Path to the Area2D on the rope
 
-var gravity_strength = 1500.0
+var gravity_strength = 3000.0
 var planet_gravity = 500.0
 
 # Custom velocity for asteroid

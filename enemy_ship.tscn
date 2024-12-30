@@ -1,4 +1,4 @@
-[gd_scene load_steps=4 format=3 uid="uid://c81nkg5ibqm22"]
+[gd_scene load_steps=7 format=3 uid="uid://c81nkg5ibqm22"]
 
 [ext_resource type="Script" path="res://enemy_ship.gd" id="1_r41y2"]
 
@@ -9,6 +9,15 @@ height = 54.0
 radius = 12.0
 height = 58.0
 
+[sub_resource type="CircleShape2D" id="CircleShape2D_63eni"]
+radius = 153.013
+
+[sub_resource type="CircleShape2D" id="CircleShape2D_tuhem"]
+radius = 3.0
+
+[sub_resource type="CircleShape2D" id="CircleShape2D_we6lv"]
+radius = 3.0
+
 [node name="EnemyShip" type="RigidBody2D"]
 collision_layer = 2
 collision_mask = 5
@@ -18,10 +27,26 @@ script = ExtResource("1_r41y2")
 [node name="CollisionShape2D" type="CollisionShape2D" parent="."]
 shape = SubResource("CapsuleShape2D_6ikx4")
 
-[node name="Area2D" type="Area2D" parent="."]
+[node name="BulletDetection" type="Area2D" parent="."]
 collision_layer = 2
 collision_mask = 4
 
-[node name="CollisionShape2D" type="CollisionShape2D" parent="Area2D"]
+[node name="CollisionShape2D" type="CollisionShape2D" parent="BulletDetection"]
 modulate = Color(1, 1, 1, 0.341176)
 shape = SubResource("CapsuleShape2D_ay6h6")
+
+[node name="PlayerDetection" type="Area2D" parent="."]
+collision_layer = 2
+
+[node name="CollisionShape2D" type="CollisionShape2D" parent="PlayerDetection"]
+self_modulate = Color(1, 1, 1, 0.180392)
+shape = SubResource("CircleShape2D_63eni")
+
+[node name="Crosshair" type="CollisionShape2D" parent="."]
+position = Vector2(0, -154)
+shape = SubResource("CircleShape2D_tuhem")
+disabled = true
+
+[node name="Front" type="CollisionShape2D" parent="."]
+position = Vector2(0, -25)
+shape = SubResource("CircleShape2D_we6lv")
