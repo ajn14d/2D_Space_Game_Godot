@@ -10,7 +10,7 @@ radius = 12.0
 height = 58.0
 
 [sub_resource type="CircleShape2D" id="CircleShape2D_63eni"]
-radius = 153.013
+radius = 615.43
 
 [sub_resource type="CircleShape2D" id="CircleShape2D_tuhem"]
 radius = 3.0
@@ -48,5 +48,7 @@ shape = SubResource("CircleShape2D_tuhem")
 disabled = true
 
 [node name="Front" type="CollisionShape2D" parent="."]
-position = Vector2(0, -25)
+position = Vector2(0, -24)
 shape = SubResource("CircleShape2D_we6lv")
+
+[node name="CooldownTimer" type="Timer" parent="."]

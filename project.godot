@@ -31,6 +31,7 @@ Bullet=""
 Trailers=""
 ship=""
 planet=""
+EnemyBullet=""
 
 [input]
 
@@ -83,3 +84,4 @@ Trailer_Door={
 2d_physics/layer_4="Hitch"
 2d_physics/layer_5="Hitchable"
 2d_physics/layer_6="Mining"
+2d_physics/layer_7="EnemyBullet"
