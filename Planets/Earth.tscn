@@ -1,0 +1,27 @@
+[gd_scene load_steps=4 format=3 uid="uid://cc6v58uyol8gw"]
+
+[ext_resource type="Script" path="res://PlanetScripts/earth.gd" id="1_rt6jj"]
+
+[sub_resource type="CircleShape2D" id="CircleShape2D_7u0bj"]
+radius = 1564.77
+
+[sub_resource type="CircleShape2D" id="CircleShape2D_f0bm6"]
+radius = 7836.4
+
+[node name="Earth" type="StaticBody2D"]
+collision_layer = 2
+collision_mask = 7
+script = ExtResource("1_rt6jj")
+
+[node name="EarthBody" type="CollisionShape2D" parent="."]
+z_as_relative = false
+shape = SubResource("CircleShape2D_7u0bj")
+one_way_collision_margin = 0.0
+
+[node name="EarthGravity" type="Area2D" parent="." groups=["planet"]]
+collision_layer = 2
+collision_mask = 7
+
+[node name="CollisionShape2D" type="CollisionShape2D" parent="EarthGravity"]
+modulate = Color(1, 1, 1, 0.231373)
+shape = SubResource("CircleShape2D_f0bm6")

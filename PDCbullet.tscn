@@ -1,0 +1,32 @@
+[gd_scene load_steps=5 format=3 uid="uid://dc5yaaa8c6nqp"]
+
+[ext_resource type="Script" path="res://PDCbullet.gd" id="1_bso24"]
+[ext_resource type="Texture2D" uid="uid://dyesojyqmkws0" path="res://Art/Player_Bullet.png" id="2_kcfxi"]
+
+[sub_resource type="CircleShape2D" id="CircleShape2D_mtj8y"]
+radius = 2.0
+
+[sub_resource type="CircleShape2D" id="CircleShape2D_iwpya"]
+radius = 3.0
+
+[node name="PDCbullet" type="RigidBody2D" groups=["Bullet"]]
+collision_layer = 4
+collision_mask = 2
+mass = 0.001
+gravity_scale = 0.0
+script = ExtResource("1_bso24")
+
+[node name="CollisionShape2D" type="CollisionShape2D" parent="."]
+shape = SubResource("CircleShape2D_mtj8y")
+
+[node name="BulletArt" type="Sprite2D" parent="."]
+scale = Vector2(0.3, 0.3)
+texture = ExtResource("2_kcfxi")
+
+[node name="Area2D" type="Area2D" parent="."]
+collision_layer = 4
+collision_mask = 2
+
+[node name="CollisionShape2D" type="CollisionShape2D" parent="Area2D"]
+modulate = Color(1, 1, 1, 0.196078)
+shape = SubResource("CircleShape2D_iwpya")

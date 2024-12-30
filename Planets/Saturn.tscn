@@ -1,0 +1,27 @@
+[gd_scene load_steps=4 format=3 uid="uid://dk5htglg647ju"]
+
+[ext_resource type="Script" path="res://PlanetScripts/saturn.gd" id="1_exet6"]
+
+[sub_resource type="CircleShape2D" id="CircleShape2D_7u0bj"]
+radius = 4850.05
+
+[sub_resource type="CircleShape2D" id="CircleShape2D_f0bm6"]
+radius = 13096.0
+
+[node name="Saturn" type="StaticBody2D"]
+collision_layer = 2
+collision_mask = 7
+script = ExtResource("1_exet6")
+
+[node name="SaturnBody" type="CollisionShape2D" parent="."]
+z_as_relative = false
+shape = SubResource("CircleShape2D_7u0bj")
+one_way_collision_margin = 0.0
+
+[node name="SaturnGravity" type="Area2D" parent="." groups=["planet"]]
+collision_layer = 2
+collision_mask = 7
+
+[node name="CollisionShape2D" type="CollisionShape2D" parent="SaturnGravity"]
+modulate = Color(1, 1, 1, 0.231373)
+shape = SubResource("CircleShape2D_f0bm6")

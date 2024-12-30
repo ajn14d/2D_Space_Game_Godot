@@ -1,0 +1,7 @@
+[gd_scene load_steps=2 format=3 uid="uid://dddvxigd7j162"]
+
+[ext_resource type="PackedScene" uid="uid://dwyklx1yoaija" path="res://player_ship.tscn" id="1_6tbk4"]
+
+[node name="SpaceGameplay" type="Node2D"]
+
+[node name="PlayerShip" parent="." instance=ExtResource("1_6tbk4")]

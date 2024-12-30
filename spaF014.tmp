@@ -1,0 +1,26 @@
+[gd_scene load_steps=4 format=3 uid="uid://dddvxigd7j162"]
+
+[ext_resource type="PackedScene" uid="uid://dwyklx1yoaija" path="res://player_ship.tscn" id="1_6tbk4"]
+[ext_resource type="Texture2D" uid="uid://ckw1k62bf5tnw" path="res://SpaceMap.jpg" id="2_q1muq"]
+[ext_resource type="PackedScene" uid="uid://ci3614rsgehhe" path="res://sun.tscn" id="3_4tsaj"]
+
+[node name="SpaceGameplay" type="Node2D"]
+
+[node name="PlayerShip" parent="." instance=ExtResource("1_6tbk4")]
+z_index = 1
+position = Vector2(6000, 0)
+motion_mode = 1
+
+[node name="Camera2D" type="Camera2D" parent="PlayerShip"]
+
+[node name="Sprite2D" type="TextureRect" parent="."]
+show_behind_parent = true
+offset_left = -122795.0
+offset_top = -58836.0
+offset_right = 708127.0
+offset_bottom = 300705.0
+scale = Vector2(0.306408, 0.346781)
+texture = ExtResource("2_q1muq")
+stretch_mode = 1
+
+[node name="Sun" parent="." instance=ExtResource("3_4tsaj")]

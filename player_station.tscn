@@ -1,0 +1,85 @@
+[gd_scene load_steps=4 format=3 uid="uid://tgdt215ebucc"]
+
+[ext_resource type="Script" path="res://player_station.gd" id="1_y5jmk"]
+[ext_resource type="Texture2D" uid="uid://0s6rqsxfnalg" path="res://Art/spacestation-1.png.png" id="1_y11ir"]
+
+[sub_resource type="CapsuleShape2D" id="CapsuleShape2D_kf77v"]
+radius = 198.0
+height = 498.0
+
+[node name="PlayerStation" type="StaticBody2D"]
+collision_layer = 2
+script = ExtResource("1_y5jmk")
+
+[node name="Sprite2D" type="Sprite2D" parent="."]
+position = Vector2(-4, 1)
+scale = Vector2(1.5, 1.5)
+texture = ExtResource("1_y11ir")
+
+[node name="CollisionPolygon2D" type="CollisionPolygon2D" parent="."]
+visible = false
+polygon = PackedVector2Array(-74, 101, -73, 22, -149, 22, -150, -32, -72, -32, -71, -141, -10, -219, 12, -221, 70, -140, 72, -34, 150, -34, 153, 23, 72, 22, 74, 101, 53, 122, 31, 121, 32, 220, -31, 222, -34, 121, -52, 123)
+
+[node name="UIarea" type="Area2D" parent="."]
+
+[node name="CollisionShape2D" type="CollisionShape2D" parent="UIarea"]
+modulate = Color(1, 1, 1, 0.223529)
+position = Vector2(-1, -4)
+shape = SubResource("CapsuleShape2D_kf77v")
+
+[node name="InventoryWindow" type="Window" parent="."]
+initial_position = 2
+size = Vector2i(500, 250)
+
+[node name="Content" type="VBoxContainer" parent="InventoryWindow"]
+offset_right = 40.0
+offset_bottom = 40.0
+
+[node name="StationCredit" type="Button" parent="InventoryWindow"]
+anchors_preset = 1
+anchor_left = 1.0
+anchor_right = 1.0
+offset_left = -350.0
+offset_top = 52.0
+offset_right = -325.0
+offset_bottom = 83.0
+grow_horizontal = 0
+text = "<"
+
+[node name="StationIron" type="Button" parent="InventoryWindow"]
+anchors_preset = 1
+anchor_left = 1.0
+anchor_right = 1.0
+offset_left = -350.0
+offset_top = 20.0
+offset_right = -325.0
+offset_bottom = 51.0
+grow_horizontal = 0
+text = "<"
+
+[node name="ShipCredit" type="Button" parent="InventoryWindow"]
+anchors_preset = 1
+anchor_left = 1.0
+anchor_right = 1.0
+offset_left = -290.0
+offset_top = 52.0
+offset_right = -265.0
+offset_bottom = 83.0
+grow_horizontal = 0
+text = ">"
+
+[node name="ShipIron" type="Button" parent="InventoryWindow"]
+anchors_preset = 1
+anchor_left = 1.0
+anchor_right = 1.0
+offset_left = -290.0
+offset_top = 20.0
+offset_right = -265.0
+offset_bottom = 51.0
+grow_horizontal = 0
+text = ">"
+
+[connection signal="pressed" from="InventoryWindow/StationCredit" to="." method="_on_station_credit_pressed"]
+[connection signal="pressed" from="InventoryWindow/StationIron" to="." method="_on_station_iron_pressed"]
+[connection signal="pressed" from="InventoryWindow/ShipCredit" to="." method="_on_ship_credit_pressed"]
+[connection signal="pressed" from="InventoryWindow/ShipIron" to="." method="_on_ship_iron_pressed"]

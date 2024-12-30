@@ -1,0 +1,21 @@
+[gd_scene load_steps=4 format=3 uid="uid://ci3614rsgehhe"]
+
+[ext_resource type="Script" path="res://sun_gravity.gd" id="1_fes5u"]
+
+[sub_resource type="CircleShape2D" id="CircleShape2D_7u0bj"]
+radius = 1360.48
+
+[sub_resource type="CircleShape2D" id="CircleShape2D_f0bm6"]
+radius = 5421.16
+
+[node name="Sun" type="StaticBody2D"]
+
+[node name="SunBody" type="CollisionShape2D" parent="."]
+shape = SubResource("CircleShape2D_7u0bj")
+
+[node name="SunGravity" type="StaticBody2D" parent="."]
+script = ExtResource("1_fes5u")
+
+[node name="CollisionShape2D" type="CollisionShape2D" parent="SunGravity"]
+modulate = Color(1, 1, 1, 0.231373)
+shape = SubResource("CircleShape2D_f0bm6")

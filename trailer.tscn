@@ -1,0 +1,45 @@
+[gd_scene load_steps=4 format=3 uid="uid://ebh2s6m0mp74"]
+
+[ext_resource type="Script" path="res://trailer.gd" id="1_8mby4"]
+
+[sub_resource type="SegmentShape2D" id="SegmentShape2D_a3y55"]
+a = Vector2(2.82528, -17.5864)
+b = Vector2(0.298019, 15.513)
+
+[sub_resource type="CircleShape2D" id="CircleShape2D_xk21j"]
+radius = 4.12311
+
+[node name="Trailer" type="RigidBody2D"]
+collision_layer = 17
+collision_mask = 9
+mass = 0.001
+gravity_scale = 0.0
+linear_damp = 1.0
+script = ExtResource("1_8mby4")
+
+[node name="TrailerDoor" type="CollisionShape2D" parent="."]
+position = Vector2(14, 49)
+rotation = -0.291739
+scale = Vector2(5, 2.047)
+skew = -0.123714
+shape = SubResource("SegmentShape2D_a3y55")
+
+[node name="BodyEnteredArea" type="Area2D" parent="." groups=["Trailers"]]
+position = Vector2(0, 58)
+collision_layer = 18
+collision_mask = 9
+
+[node name="CollisionShape2D" type="CollisionShape2D" parent="BodyEnteredArea"]
+position = Vector2(0, -58)
+shape = SubResource("CircleShape2D_xk21j")
+
+[node name="PinJoint2D" type="PinJoint2D" parent="."]
+node_a = NodePath("..")
+node_b = NodePath("Rope")
+
+[node name="CollisionShape2D" type="CollisionPolygon2D" parent="."]
+position = Vector2(2.1746, -6.90319)
+scale = Vector2(2.41567, 1.99314)
+polygon = PackedVector2Array(-1, 5, -4.62587, 3.9652, -5.4538, 1.45659, -5.03984, -5.06578, -5.45381, -9.07955, -7.10965, 1.95831, -3.38398, 9.48413, -13.3191, 13.9996, -17.0448, 129.897, -8.7655, 146.956, -0.900204, 150.969, 6.96509, 144.949, 14.8304, 127.89, 14.8304, 56.6459, 14.8304, 42.096, 7.79303, 41.5943, 7.79303, 125.883, 5.72321, 141.437, -0.900204, 145.45, -7.52361, 143.444, -9.59345, 129.395, -8.35155, 19.0168, 1.99754, 11.491, 4.89528, 1.45659, 3.6534, -9.07955, 2.82547, -5.06578, 3.23943, 0.954872, 2.4115, 3.9652, 0.972, 4.40184)
+
+[node name="Node2D" type="Node2D" parent="CollisionShape2D"]

@@ -1,0 +1,79 @@
+[gd_scene load_steps=6 format=3 uid="uid://cmbexssywyqmw"]
+
+[ext_resource type="Script" path="res://channel_marker.gd" id="1_8wxis"]
+[ext_resource type="Texture2D" uid="uid://cndd5dkltbibn" path="res://icon.svg" id="1_wsvxy"]
+[ext_resource type="Texture2D" uid="uid://ct7l66v54kccn" path="res://Art/ChannelMarkerLight-1.png.png" id="2_38tph"]
+[ext_resource type="Texture2D" uid="uid://bafu76fllmydq" path="res://Art/beam-1.png.png" id="4_331bp"]
+
+[sub_resource type="RectangleShape2D" id="RectangleShape2D_lw2li"]
+size = Vector2(1544.24, 1049.23)
+
+[node name="ChannelMarker" type="StaticBody2D"]
+collision_layer = 2
+script = ExtResource("1_8wxis")
+
+[node name="Sprite2D" type="Sprite2D" parent="."]
+position = Vector2(-18.7525, -528.993)
+rotation = 1.5708
+scale = Vector2(0.132945, 0.255853)
+texture = ExtResource("2_38tph")
+
+[node name="Sprite2D3" type="Sprite2D" parent="."]
+modulate = Color(1, 1, 0, 1)
+self_modulate = Color(1, 1, 0, 0.443137)
+scale = Vector2(0.25, 0.25)
+texture = ExtResource("1_wsvxy")
+
+[node name="Sprite2D2" type="Sprite2D" parent="."]
+position = Vector2(20.2649, 523.735)
+rotation = -1.5708
+scale = Vector2(0.137225, 0.25069)
+texture = ExtResource("2_38tph")
+
+[node name="Area2D" type="Area2D" parent="."]
+collision_layer = 2
+collision_mask = 3
+
+[node name="CollisionShape2D" type="CollisionShape2D" parent="Area2D"]
+visible = false
+shape = SubResource("RectangleShape2D_lw2li")
+
+[node name="Sprite2D4" type="Sprite2D" parent="."]
+self_modulate = Color(1, 1, 1, 0.588235)
+position = Vector2(422.191, -526)
+rotation = 1.5708
+scale = Vector2(0.261859, 2.34728)
+texture = ExtResource("4_331bp")
+
+[node name="Sprite2D5" type="Sprite2D" parent="."]
+self_modulate = Color(1, 1, 1, 0.588235)
+position = Vector2(-398.739, -526)
+rotation = 1.5708
+scale = Vector2(0.261859, 2.34097)
+texture = ExtResource("4_331bp")
+
+[node name="Sprite2D6" type="Sprite2D" parent="."]
+self_modulate = Color(1, 1, 1, 0.588235)
+position = Vector2(-397, 524)
+rotation = 1.5708
+scale = Vector2(0.261859, 2.34097)
+texture = ExtResource("4_331bp")
+
+[node name="Sprite2D7" type="Sprite2D" parent="."]
+self_modulate = Color(1, 1, 1, 0.588235)
+position = Vector2(424, 524)
+rotation = 1.5708
+scale = Vector2(0.261859, 2.34097)
+texture = ExtResource("4_331bp")
+
+[node name="Sprite2D8" type="Sprite2D" parent="."]
+self_modulate = Color(1, 1, 1, 0.0705882)
+position = Vector2(28.8878, -70)
+rotation = 1.5708
+scale = Vector2(20.2106, 4.85375)
+texture = ExtResource("4_331bp")
+
+[connection signal="area_entered" from="Area2D" to="." method="_on_area_2d_area_entered"]
+[connection signal="area_exited" from="Area2D" to="." method="_on_area_2d_area_exited"]
+[connection signal="body_entered" from="Area2D" to="." method="_on_area_2d_body_entered"]
+[connection signal="body_exited" from="Area2D" to="." method="_on_area_2d_body_exited"]

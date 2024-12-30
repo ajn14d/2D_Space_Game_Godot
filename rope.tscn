@@ -1,0 +1,37 @@
+[gd_scene load_steps=5 format=3 uid="uid://r3krt7vi26d6"]
+
+[ext_resource type="Script" path="res://rope.gd" id="1_w7omb"]
+[ext_resource type="Texture2D" uid="uid://b3p8yn8u63fn2" path="res://Art/magnet.png" id="2_pc1ff"]
+
+[sub_resource type="CircleShape2D" id="CircleShape2D_hsxvf"]
+radius = 3.0
+
+[sub_resource type="CapsuleShape2D" id="CapsuleShape2D_3s2o1"]
+radius = 0.75
+height = 3.5
+
+[node name="Rope" type="RigidBody2D"]
+collision_layer = 8
+collision_mask = 16
+mass = 0.001
+gravity_scale = 0.0
+script = ExtResource("1_w7omb")
+
+[node name="CollisionShape2D" type="CollisionShape2D" parent="."]
+visible = false
+shape = SubResource("CircleShape2D_hsxvf")
+
+[node name="Area2D" type="Area2D" parent="."]
+collision_layer = 8
+collision_mask = 16
+
+[node name="CollisionShape2D" type="CollisionShape2D" parent="Area2D"]
+modulate = Color(1, 1, 1, 0.313726)
+rotation = 1.5708
+scale = Vector2(4, 4)
+shape = SubResource("CapsuleShape2D_3s2o1")
+
+[node name="Sprite2D" type="Sprite2D" parent="."]
+position = Vector2(-1.19209e-07, 0.5625)
+scale = Vector2(0.186667, 0.175)
+texture = ExtResource("2_pc1ff")

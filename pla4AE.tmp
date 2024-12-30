@@ -1,0 +1,37 @@
+[gd_scene load_steps=6 format=3 uid="uid://dwyklx1yoaija"]
+
+[ext_resource type="Script" path="res://player_ship.gd" id="1_sv74l"]
+[ext_resource type="PackedScene" uid="uid://dc5yaaa8c6nqp" path="res://PDCbullet.tscn" id="2_8x1ol"]
+
+[sub_resource type="CapsuleShape2D" id="CapsuleShape2D_rbsmr"]
+height = 50.0
+
+[sub_resource type="CircleShape2D" id="CircleShape2D_rov6f"]
+radius = 3.16228
+
+[sub_resource type="CircleShape2D" id="CircleShape2D_qrisl"]
+radius = 3.0
+
+[node name="PlayerShip" type="RigidBody2D" groups=["ship"]]
+collision_mask = 2
+mass = 0.001
+gravity_scale = 0.0
+script = ExtResource("1_sv74l")
+bullet_scene = ExtResource("2_8x1ol")
+
+[node name="CollisionShape2D" type="CollisionShape2D" parent="." groups=["ship"]]
+shape = SubResource("CapsuleShape2D_rbsmr")
+
+[node name="Front" type="CollisionShape2D" parent="."]
+modulate = Color(1, 1, 0, 1)
+position = Vector2(0, -22)
+shape = SubResource("CircleShape2D_rov6f")
+disabled = true
+
+[node name="Back" type="CollisionShape2D" parent="."]
+modulate = Color(1, 0, 1, 1)
+position = Vector2(0, 22)
+shape = SubResource("CircleShape2D_qrisl")
+disabled = true
+
+[node name="Camera2D" type="Camera2D" parent="."]

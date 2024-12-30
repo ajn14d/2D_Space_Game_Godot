@@ -1,0 +1,54 @@
+[gd_scene load_steps=5 format=3 uid="uid://qttipsjiypke"]
+
+[ext_resource type="Script" path="res://solar_station.gd" id="1_6qjv6"]
+[ext_resource type="Texture2D" uid="uid://c8ce8rlc7mcmo" path="res://Art/solar_station-1.png.png" id="2_frpfy"]
+
+[sub_resource type="CircleShape2D" id="CircleShape2D_jbutl"]
+radius = 358.452
+
+[sub_resource type="CapsuleShape2D" id="CapsuleShape2D_kf77v"]
+radius = 402.0
+height = 886.0
+
+[node name="SolarStation" type="StaticBody2D"]
+collision_layer = 2
+script = ExtResource("1_6qjv6")
+
+[node name="CollisionShape2D" type="CollisionShape2D" parent="."]
+shape = SubResource("CircleShape2D_jbutl")
+
+[node name="Sprite2D" type="Sprite2D" parent="."]
+position = Vector2(5, 0)
+scale = Vector2(1.5, 1.5)
+texture = ExtResource("2_frpfy")
+
+[node name="UIarea" type="Area2D" parent="."]
+
+[node name="CollisionShape2D" type="CollisionShape2D" parent="UIarea"]
+modulate = Color(1, 1, 1, 0.223529)
+position = Vector2(-1, -4)
+shape = SubResource("CapsuleShape2D_kf77v")
+
+[node name="ShopWindow" type="Window" parent="."]
+initial_position = 2
+size = Vector2i(500, 250)
+
+[node name="Content" type="VBoxContainer" parent="ShopWindow"]
+offset_right = 40.0
+offset_bottom = 40.0
+
+[node name="SellCargo" type="Button" parent="ShopWindow"]
+anchors_preset = 8
+anchor_left = 0.5
+anchor_top = 0.5
+anchor_right = 0.5
+anchor_bottom = 0.5
+offset_left = -42.5
+offset_top = -15.5
+offset_right = 42.5
+offset_bottom = 15.5
+grow_horizontal = 2
+grow_vertical = 2
+text = "Sell Cargo"
+
+[connection signal="pressed" from="ShopWindow/SellCargo" to="." method="_on_sell_cargo_pressed"]
