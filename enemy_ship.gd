@@ -5,16 +5,18 @@ var player_ship_detection = null
 var enemy_health: int = 100
 var player_damage: int = 5
 var target_angle: float = 0.0  # The angle the ship should rotate towards
-var rotation_speed: float = 2.0  # Speed at which the ship rotates (radians per second)
+var rotation_speed: float = 3.0  # Speed at which the ship rotates (radians per second)
 var alignment_threshold: float = 0.1  # Angle threshold to consider crosshair aligned with the player
 var shoot_cooldown: float = 0.5  # Cooldown between shots in seconds
 
 var cooldown_timer: Timer  # Declare a reference to the Timer node
 
 # Patrol variables
-var patrol_radius: float = 1000.0  # Max radius to patrol within
+var patrol_radius: float = 4000.0  # Max radius to patrol within
 var patrol_point: Vector2  # The patrol point to move to
-var move_speed: float = 100.0  # Speed at which the enemy moves
+var max_speed: float = 150.0  # Max speed the enemy can reach while patrolling
+var acceleration: float = 30.0  # Acceleration rate of the ship
+var braking_force: float = 10000.0  # Braking force to slow down the ship
 var spawn_position: Vector2  # Enemy's spawn position
 var is_patrolling: bool = true  # Flag to control whether the enemy is patrolling or not
 
@@ -92,11 +94,28 @@ func patrol_towards(patrol_target: Vector2, delta: float) -> void:
 	# Calculate the direction to the patrol point
 	var direction_to_patrol = (patrol_target - global_position).normalized()
 	
-	# Move the enemy ship in the direction of the patrol point
-	linear_velocity = direction_to_patrol * move_speed
+	# If the ship is close to the patrol point, stop it
+	if global_position.distance_to(patrol_target) < 20.0:
+		linear_velocity = Vector2.ZERO  # Stop the ship from moving
+		# Ensure that the ship is facing the patrol point
+		var target_angle = (patrol_target - global_position).angle()
+		rotation = lerp_angle(rotation, target_angle + deg_to_rad(90), rotation_speed * delta)
+		return
+
+	# Accelerate the ship towards the patrol point if it's not close enough
+	if linear_velocity.length() < max_speed:
+		linear_velocity += direction_to_patrol * acceleration * delta
+
+	# Apply braking force if the ship is near the patrol point to prevent overshooting
+	if global_position.distance_to(patrol_target) < 40.0:
+		linear_velocity = linear_velocity.move_toward(Vector2.ZERO, braking_force * delta)
+
+	# Rotate towards the patrol point
+	var target_angle = (patrol_target - global_position).angle()
+	rotation = lerp_angle(rotation, target_angle + deg_to_rad(90), rotation_speed * delta)
 
 	# If close enough to the patrol point, set a new patrol point
-	if global_position.distance_to(patrol_target) < 10.0:
+	if global_position.distance_to(patrol_target) < 40.0:
 		set_random_patrol_point()
 
 # Function to set a new random patrol point within the patrol radius

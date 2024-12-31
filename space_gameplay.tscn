@@ -68,10 +68,10 @@ position = Vector2(900000, 0)
 
 [node name="PlayerShip" parent="." instance=ExtResource("1_6tbk4")]
 z_index = 1
-position = Vector2(190098, -1344)
+position = Vector2(188730, -3776)
 
 [node name="EnemyShip" parent="." instance=ExtResource("13_r28yu")]
-position = Vector2(190708, -1762)
+position = Vector2(189644, -4247)
 mass = 0.1
 
 [node name="MiningRigSmall" parent="." instance=ExtResource("6_u3coa")]
