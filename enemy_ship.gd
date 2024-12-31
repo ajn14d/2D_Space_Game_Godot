@@ -11,6 +11,13 @@ var shoot_cooldown: float = 0.5  # Cooldown between shots in seconds
 
 var cooldown_timer: Timer  # Declare a reference to the Timer node
 
+# Patrol variables
+var patrol_radius: float = 1000.0  # Max radius to patrol within
+var patrol_point: Vector2  # The patrol point to move to
+var move_speed: float = 100.0  # Speed at which the enemy moves
+var spawn_position: Vector2  # Enemy's spawn position
+var is_patrolling: bool = true  # Flag to control whether the enemy is patrolling or not
+
 func _ready() -> void:
 	# Connect the area signals for detecting collisions
 	$BulletDetection.connect("body_entered", Callable(self, "_on_body_entered"))
@@ -26,6 +33,12 @@ func _ready() -> void:
 	cooldown_timer.one_shot = true
 	cooldown_timer.start()
 
+	# Store the spawn position of the enemy
+	spawn_position = global_position
+	
+	# Initialize patrol point within the defined radius
+	set_random_patrol_point()
+
 # Called when a body enters the Area2D
 func _on_body_entered(body: Node) -> void:
 	if body.is_in_group("Bullet"):  # Check if the body is a Bullet
@@ -37,16 +50,21 @@ func _on_body_entered(body: Node) -> void:
 	elif body.is_in_group("ship"):  # Check if the body is Player Ship
 		print("Player detected")
 		player_ship_detection = body  # Assign the detected player ship
+		is_patrolling = false  # Stop patrolling when the player ship is detected
 
 # Called when a body exits the Area2D
 func _on_body_exited(body: Node) -> void:
 	if body.is_in_group("ship"):  # Check if the body is Player Ship
 		print("Player left")
 		player_ship_detection = null  # Clear the player ship reference
+		is_patrolling = true  # Resume patrolling when the player ship exits
 
-# Smoothly rotate the enemy ship towards the player
+# Smoothly rotate the enemy ship towards the player and patrol logic
 func _physics_process(delta: float) -> void:
 	if player_ship_detection:
+		# Stop the enemy ship from drifting
+		linear_velocity = Vector2.ZERO  # Stop the ship from moving when the player is detected
+		
 		# Calculate direction to the player
 		var direction_to_player = (player_ship.global_position - global_position).normalized().rotated(deg_to_rad(90))
 		target_angle = direction_to_player.angle()
@@ -65,6 +83,29 @@ func _physics_process(delta: float) -> void:
 			# Restart the cooldown timer after firing
 			cooldown_timer.start()
 
+	# Patrol logic (only active if is_patrolling is true)
+	if is_patrolling:
+		patrol_towards(patrol_point, delta)
+
+# Function to move the enemy ship towards the patrol point
+func patrol_towards(patrol_target: Vector2, delta: float) -> void:
+	# Calculate the direction to the patrol point
+	var direction_to_patrol = (patrol_target - global_position).normalized()
+	
+	# Move the enemy ship in the direction of the patrol point
+	linear_velocity = direction_to_patrol * move_speed
+
+	# If close enough to the patrol point, set a new patrol point
+	if global_position.distance_to(patrol_target) < 10.0:
+		set_random_patrol_point()
+
+# Function to set a new random patrol point within the patrol radius
+func set_random_patrol_point() -> void:
+	# Generate a random point within the patrol radius around the spawn position
+	var random_offset = Vector2(randf_range(-patrol_radius, patrol_radius), randf_range(-patrol_radius, patrol_radius))
+	patrol_point = spawn_position + random_offset
+
+# Function to shoot the bullet
 func shoot_bullet():
 	# Instance the bullet
 	var bullet_scene = preload("res://EnemyPDCbullet.tscn")  # Preload the bullet scene
