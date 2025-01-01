@@ -133,13 +133,13 @@ func _integrate_forces(state: PhysicsDirectBodyState2D):
 	var delta = state.get_step()
 
 	# Handle rotation: Apply rotation only when input is held
-	if Input.is_action_pressed("ui_left"):
+	if Input.is_action_pressed("rotate_counterclockwise"):
 		angular_velocity -= ROTATION_SPEED * delta
-	elif Input.is_action_pressed("ui_right"):
+	elif Input.is_action_pressed("rotate_clockwise"):
 		angular_velocity += ROTATION_SPEED * delta
 	else:
 		# Smoothly decelerate the angular velocity when no input is given
-		angular_velocity = lerp(angular_velocity, 0.0, 0.04)  # Adjust 0.1 for smoothness
+		angular_velocity = lerp(angular_velocity, 0.0, 0.04)  # Adjust 0.04 for smoothness
 
 	# Optional: Clamp angular velocity to prevent it from going too fast
 	angular_velocity = clamp(angular_velocity, -MAX_ROTATION_SPEED, MAX_ROTATION_SPEED)
@@ -147,12 +147,22 @@ func _integrate_forces(state: PhysicsDirectBodyState2D):
 	# Calculate the axis vector from Back to Front and normalize it
 	var movement_axis = (front.global_position - back.global_position).normalized()
 
-	# Apply thrust along the axis defined by Front and Back
-	if Input.is_action_pressed("ui_up"):
+	# Calculate the left/right (perpendicular) axis
+	var perpendicular_axis = movement_axis.rotated(deg_to_rad(90))  # Perpendicular to the forward direction
+
+	# Apply thrust along the axis defined by Front and Back (forward and backward)
+	if Input.is_action_pressed("move_up"):
 		custom_velocity += movement_axis * ACCELERATION * delta
 		
-	elif Input.is_action_pressed("ui_down"):
+	elif Input.is_action_pressed("move_down"):
 		custom_velocity -= movement_axis * ACCELERATION * delta
+
+	# Apply strafing along the perpendicular axis (left and right)
+	if Input.is_action_pressed("move_right"):
+		custom_velocity += perpendicular_axis * ACCELERATION * delta
+		
+	elif Input.is_action_pressed("move_left"):
+		custom_velocity -= perpendicular_axis * ACCELERATION * delta
 
 	# Limit velocity to max speed
 	if custom_velocity.length() > MAX_SPEED:
