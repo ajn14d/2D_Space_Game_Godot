@@ -1,10 +1,11 @@
-[gd_scene load_steps=11 format=3 uid="uid://dwyklx1yoaija"]
+[gd_scene load_steps=12 format=3 uid="uid://dwyklx1yoaija"]
 
 [ext_resource type="Script" path="res://player_ship.gd" id="1_sv74l"]
 [ext_resource type="PackedScene" uid="uid://dc5yaaa8c6nqp" path="res://PDCbullet.tscn" id="2_8x1ol"]
 [ext_resource type="Texture2D" uid="uid://4owvd00hv6na" path="res://Art/player_Ship_Placeholder.png" id="3_e8l8t"]
 [ext_resource type="Texture2D" uid="uid://62a5t8feth5j" path="res://Art/Engine_Plume_Placeholder-1.png.png" id="4_i73dw"]
 [ext_resource type="Script" path="res://hitch.gd" id="5_i33vq"]
+[ext_resource type="Texture2D" uid="uid://05l766xeqs56" path="res://Art/RCS_Plume.png" id="5_mig1m"]
 [ext_resource type="PackedScene" uid="uid://r3krt7vi26d6" path="res://rope.tscn" id="5_vg5yj"]
 
 [sub_resource type="CapsuleShape2D" id="CapsuleShape2D_rbsmr"]
@@ -67,6 +68,38 @@ position = Vector2(1.25, 225)
 rotation = 3.14159
 scale = Vector2(1, 1.5)
 texture = ExtResource("4_i73dw")
+
+[node name="RCS_Top_Right" type="Sprite2D" parent="ShipArt"]
+visible = false
+modulate = Color(1, 1, 1, 0.431373)
+position = Vector2(29.8713, -145.526)
+rotation = 1.5708
+scale = Vector2(2, 1.35596)
+texture = ExtResource("5_mig1m")
+
+[node name="RCS_Top_Left" type="Sprite2D" parent="ShipArt"]
+visible = false
+modulate = Color(1, 1, 1, 0.431373)
+position = Vector2(-25.4739, -145.526)
+rotation = -1.5708
+scale = Vector2(2, 1.30177)
+texture = ExtResource("5_mig1m")
+
+[node name="RCS_Bottom_Left" type="Sprite2D" parent="ShipArt"]
+visible = false
+modulate = Color(1, 1, 1, 0.431373)
+position = Vector2(-22.1171, 182.942)
+rotation = -1.5708
+scale = Vector2(2, 1.39931)
+texture = ExtResource("5_mig1m")
+
+[node name="RCS_Bottom_Right" type="Sprite2D" parent="ShipArt"]
+visible = false
+modulate = Color(1, 1, 1, 0.431373)
+position = Vector2(29.6979, 182.942)
+rotation = 1.5708
+scale = Vector2(2, 1.42099)
+texture = ExtResource("5_mig1m")
 
 [node name="PinJoint2D" type="PinJoint2D" parent="."]
 position = Vector2(0, 27)

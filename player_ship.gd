@@ -55,6 +55,10 @@ var max_rotation_angle = deg_to_rad(8.0)  # Convert 365 degrees to radians
 
 @onready var camera = $Camera2D  # Assuming you have a Camera2D node attached to the PlayerShip
 @onready var engine_plume = $ShipArt/EnginePlume # variable for engine plume art
+@onready var rcs_top_left = $ShipArt/RCS_Top_Left # variable for rcs top left
+@onready var rcs_top_right = $ShipArt/RCS_Top_Right # variable for rcs top right
+@onready var rcs_bottom_left = $ShipArt/RCS_Bottom_Left # variable for rcs bottom left
+@onready var rcs_bottom_right = $ShipArt/RCS_Bottom_Right # variable for rcs top left
 
 # Custom velocity for ship
 var custom_velocity = Vector2.ZERO
@@ -117,10 +121,38 @@ func _input(event: InputEvent):
 	# Check if the shoot action (space key) is pressed
 	if event.is_action_pressed("shoot"):
 		shoot_bullet()
+		
+	# Visibility for engine plume and rcs plumes
 	if Input.is_action_pressed("move_up"):
-		engine_plume.visible = true  # show the EnginePlume when no thrust is applied
+		engine_plume.visible = true 
 	elif event.is_action_released("move_up"):
-		engine_plume.visible = false  # Hide the plume when the key is released
+		engine_plume.visible = false  
+	if Input.is_action_pressed("move_right"):
+		rcs_top_left.visible = true
+		rcs_bottom_left.visible = true
+	elif event.is_action_released("move_right"):
+		rcs_top_left.visible = false
+		rcs_bottom_left.visible = false
+	if Input.is_action_pressed("move_left"):
+		rcs_top_right.visible = true
+		rcs_bottom_right.visible = true
+	elif event.is_action_released("move_left"):
+		rcs_top_right.visible = false
+		rcs_bottom_right.visible = false
+	if Input.is_action_pressed("rotate_clockwise"):
+		rcs_top_left.visible = true
+		rcs_bottom_right.visible = true
+	elif event.is_action_released("rotate_clockwise"):
+		rcs_top_left.visible = false
+		rcs_bottom_right.visible = false
+	if Input.is_action_pressed("rotate_counterclockwise"):
+		rcs_top_right.visible = true
+		rcs_bottom_left.visible = true
+	elif event.is_action_released("rotate_counterclockwise"):
+		rcs_top_right.visible = false
+		rcs_bottom_left.visible = false
+	
+	
 	if event.is_action_pressed("shoot_rope"):  # The key to shoot the rope, e.g., 'n'
 		# Toggle visibility based on the current state
 		is_pin_joint_visible = !is_pin_joint_visible
