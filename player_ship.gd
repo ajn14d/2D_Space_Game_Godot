@@ -164,8 +164,10 @@ func _integrate_forces(state: PhysicsDirectBodyState2D):
 	# Access delta time from state
 	var delta = state.get_step()
 
-	# Handle rotation: Apply rotation only when input is held
-	if Input.is_action_pressed("rotate_counterclockwise"):
+	# Handle rotation: Check both inputs and cancel if both are pressed
+	if Input.is_action_pressed("rotate_counterclockwise") and Input.is_action_pressed("rotate_clockwise"):
+		angular_velocity = lerp(angular_velocity, 0.0, 0.04)  # Smooth deceleration
+	elif Input.is_action_pressed("rotate_counterclockwise"):
 		angular_velocity -= ROTATION_SPEED * delta
 	elif Input.is_action_pressed("rotate_clockwise"):
 		angular_velocity += ROTATION_SPEED * delta
@@ -182,19 +184,20 @@ func _integrate_forces(state: PhysicsDirectBodyState2D):
 	# Calculate the left/right (perpendicular) axis
 	var perpendicular_axis = movement_axis.rotated(deg_to_rad(90))  # Perpendicular to the forward direction
 
+	# Handle movement: Check both directions and cancel if both are pressed
+	if Input.is_action_pressed("move_left") and Input.is_action_pressed("move_right"):
+		# Cancel out lateral forces by doing nothing
+		pass
+	elif Input.is_action_pressed("move_right"):
+		custom_velocity += perpendicular_axis * ACCELERATION * delta
+	elif Input.is_action_pressed("move_left"):
+		custom_velocity -= perpendicular_axis * ACCELERATION * delta
+
 	# Apply thrust along the axis defined by Front and Back (forward and backward)
 	if Input.is_action_pressed("move_up"):
 		custom_velocity += movement_axis * ACCELERATION * delta
-		
 	elif Input.is_action_pressed("move_down"):
 		custom_velocity -= movement_axis * ACCELERATION * delta
-
-	# Apply strafing along the perpendicular axis (left and right)
-	if Input.is_action_pressed("move_right"):
-		custom_velocity += perpendicular_axis * ACCELERATION * delta
-		
-	elif Input.is_action_pressed("move_left"):
-		custom_velocity -= perpendicular_axis * ACCELERATION * delta
 
 	# Limit velocity to max speed
 	if custom_velocity.length() > MAX_SPEED:
@@ -203,6 +206,7 @@ func _integrate_forces(state: PhysicsDirectBodyState2D):
 	# Apply braking if the space key is held
 	if Input.is_action_pressed("brake"):
 		custom_velocity = custom_velocity.move_toward(Vector2.ZERO, BRAKE_FORCE * delta)
+
 
 	# Apply gravity force if inside Bodies gravity area
 	if sun and sun.get_overlapping_bodies().has(self):  # Check if the ship is within the gravity area
