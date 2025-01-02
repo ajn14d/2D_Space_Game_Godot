@@ -117,9 +117,9 @@ func _input(event: InputEvent):
 	# Check if the shoot action (space key) is pressed
 	if event.is_action_pressed("shoot"):
 		shoot_bullet()
-	if Input.is_action_pressed("ui_up"):
+	if Input.is_action_pressed("move_up"):
 		engine_plume.visible = true  # show the EnginePlume when no thrust is applied
-	elif event.is_action_released("ui_up"):
+	elif event.is_action_released("move_up"):
 		engine_plume.visible = false  # Hide the plume when the key is released
 	if event.is_action_pressed("shoot_rope"):  # The key to shoot the rope, e.g., 'n'
 		# Toggle visibility based on the current state
