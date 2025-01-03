@@ -19,7 +19,7 @@ radius = 3.0
 radius = 3.0
 
 [sub_resource type="CircleShape2D" id="CircleShape2D_hsox8"]
-radius = 2306.44
+radius = 2447.09
 
 [node name="EnemyShip" type="RigidBody2D"]
 collision_layer = 2
