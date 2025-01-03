@@ -1,4 +1,4 @@
-[gd_scene load_steps=21 format=3 uid="uid://dddvxigd7j162"]
+[gd_scene load_steps=22 format=3 uid="uid://dddvxigd7j162"]
 
 [ext_resource type="PackedScene" uid="uid://dwyklx1yoaija" path="res://player_ship.tscn" id="1_6tbk4"]
 [ext_resource type="Texture2D" uid="uid://buhpyx56gcs2i" path="res://Art/SpaceMap.png" id="1_qak0j"]
@@ -20,6 +20,7 @@
 [ext_resource type="PackedScene" uid="uid://cmbexssywyqmw" path="res://channel_marker.tscn" id="17_qur5c"]
 [ext_resource type="PackedScene" uid="uid://tgdt215ebucc" path="res://player_station.tscn" id="19_b0lsq"]
 [ext_resource type="PackedScene" uid="uid://qttipsjiypke" path="res://solar_station.tscn" id="20_dhxm3"]
+[ext_resource type="PackedScene" uid="uid://d0wfmiy6g3cis" path="res://kuiper_belt.tscn" id="21_uatmh"]
 
 [node name="SpaceGameplay" type="Node2D"]
 
@@ -68,10 +69,10 @@ position = Vector2(900000, 0)
 
 [node name="PlayerShip" parent="." instance=ExtResource("1_6tbk4")]
 z_index = 1
-position = Vector2(188730, -3776)
+position = Vector2(191000, -1700)
 
 [node name="EnemyShip" parent="." instance=ExtResource("13_r28yu")]
-position = Vector2(189644, -4247)
+position = Vector2(190616, -5409)
 mass = 0.1
 
 [node name="MiningRigSmall" parent="." instance=ExtResource("6_u3coa")]
@@ -7492,3 +7493,6 @@ position = Vector2(189596, -2240)
 
 [node name="SolarStation" parent="." instance=ExtResource("20_dhxm3")]
 position = Vector2(22765, 2)
+
+[node name="KuiperBelt" parent="." instance=ExtResource("21_uatmh")]
+scale = Vector2(950, 950)

@@ -106,6 +106,7 @@ func set_random_patrol_point() -> void:
 # Called when the player enters the detection area
 func _on_player_entered(body: Node) -> void:
 	if body.is_in_group("ship"):
+		set_physics_process(true)
 		is_patrolling = true
 		player_ship = body
 
@@ -114,12 +115,14 @@ func _on_player_exited(body: Node) -> void:
 	if body.is_in_group("ship"):
 		player_ship = null
 		is_patrolling = false  # Start patrolling after the player leaves
+		set_to_passive()
 		set_random_patrol_point()
 
 # Sets the ship to a passive state
 func set_to_passive() -> void:
 	is_patrolling = false
 	linear_velocity = Vector2.ZERO
+	set_physics_process(false)
 
 # Shoot a bullet
 func shoot_bullet() -> void:
