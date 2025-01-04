@@ -148,3 +148,10 @@ func _on_player_detection_body_exited(body: Node2D) -> void:
 	if body.is_in_group("ship"):
 		is_active = false
 		is_patrolling = true
+
+func _on_bullet_detection_body_entered(body: Node2D) -> void:
+	print("hit")
+	enemy_health -= player_damage
+	print(enemy_health)
+	if enemy_health < 1:
+		queue_free()
