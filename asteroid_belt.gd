@@ -4,8 +4,8 @@ extends StaticBody2D
 var asteroid_scene = preload("res://asteroid.tscn")
 var enemy_ship_scene = preload("res://enemy_ship.tscn")
 
-@export var spawn_rate: float = 0.1  # Time in seconds between spawns
-@export var max_asteroids: int = 5000  # Maximum number of asteroids
+@export var spawn_rate: float = 0.5  # Time in seconds between spawns
+@export var max_asteroids: int = 1000  # Maximum number of asteroids
 @export var max_enemy_ships: int = 100  # Maximum number of enemy ships
 
 # Lists to keep track of spawned objects
@@ -13,8 +13,7 @@ var spawned_asteroids: Array = []
 var spawned_enemy_ships: Array = []
 
 func _ready() -> void:
-	# Start spawning process
-	start_spawning()
+	pass
 
 func start_spawning() -> void:
 	# Continuously check the spawn conditions
@@ -27,11 +26,11 @@ func spawn_check() -> void:
 
 	# Spawn new asteroids if needed
 	if active_asteroids.size() < max_asteroids:
-		spawn_asteroids(max_asteroids - active_asteroids.size())
+		call_deferred("spawn_asteroids", max_asteroids - active_asteroids.size())  # Deferring the spawn
 
 	# Spawn new enemy ships if needed
 	if active_enemy_ships.size() < max_enemy_ships:
-		spawn_enemy_ships(max_enemy_ships - active_enemy_ships.size())
+		call_deferred("spawn_enemy_ships", max_enemy_ships - active_enemy_ships.size())  # Deferring the spawn
 
 	# Schedule the next check
 	await get_tree().create_timer(spawn_rate).timeout
@@ -86,3 +85,8 @@ func get_random_position_in_area() -> Vector2:
 
 func _on_asteroid_left_area(asteroid: Node) -> void:
 	spawned_asteroids.erase(asteroid)
+
+func _on_area_2d_body_entered(body: Node2D) -> void:
+	if body.is_in_group("ship"):
+		# Start spawning process when the ship enters the area
+		start_spawning()

@@ -69,7 +69,7 @@ position = Vector2(900000, 0)
 
 [node name="PlayerShip" parent="." instance=ExtResource("1_6tbk4")]
 z_index = 1
-position = Vector2(191000, -1700)
+position = Vector2(332087, -772)
 
 [node name="EnemyShip" parent="." instance=ExtResource("13_r28yu")]
 position = Vector2(190616, -5409)
