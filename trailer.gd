@@ -16,7 +16,7 @@ func _ready() -> void:
 func _process(_delta: float) -> void:
 	pass
 
-func _integrate_forces(state: PhysicsDirectBodyState2D):
+func _integrate_forces(_state: PhysicsDirectBodyState2D):
 	# Ensure rope_area is valid and monitoring before applying gravity
 	if rope_area and rope_area.monitoring:
 		# Check if this trailer's body is within the rope_area

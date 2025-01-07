@@ -148,7 +148,7 @@ func _on_player_detection_body_exited(body: Node2D) -> void:
 		is_active = false
 		is_patrolling = true
 
-func _on_bullet_detection_body_entered(body: Node2D) -> void:
+func _on_bullet_detection_body_entered(_body: Node2D) -> void:
 	print("hit")
 	enemy_health -= player_damage
 	print(enemy_health)
