@@ -2,7 +2,7 @@ extends RigidBody2D
 
 # Define constants
 var ACCELERATION = 200.0  # Forward/reverse acceleration
-var MAX_SPEED = 500.0
+var MAX_SPEED = 400.0
 var BRAKE_FORCE = 200.0
 var ROTATION_SPEED = 3.0  # Rotation speed in radians per second
 var MAX_ROTATION_SPEED = deg_to_rad(180)  # 180 degrees per second, adjust as needed
