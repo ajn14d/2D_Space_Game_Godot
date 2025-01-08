@@ -5,9 +5,11 @@ extends RigidBody2D
 @onready var rope_area = get_node("/root/SpaceGameplay/PlayerShip/PinJoint2D/Rope/Area2D")  # Path to the Area2D on the rope
 @onready var rope_collision_shape = get_node("/root/SpaceGameplay/PlayerShip/PinJoint2D/Rope/CollisionShape2D")  # Path to the CollisionShape2D
 
-var gravity_strength = 1500.0
+var gravity_strength = 2500.0
 var is_monitoring = true  # Tracks whether the Area2D and CollisionShape2D are enabled 
 
+func _ready():
+	pass
 
 func _integrate_forces(state: PhysicsDirectBodyState2D):
 	# Iterate over all bodies in the area and check if they belong to the "Asteroids" group
