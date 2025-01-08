@@ -9,9 +9,10 @@ var player_damage: int = 5
 
 # Shooting variables
 var target_angle: float = 0.0  # The angle the ship should rotate towards
-var rotation_speed: float = 3.0  # Speed at which the ship rotates (radians per second)
+var rotation_speed: float = 4.0  # Speed at which the ship rotates (radians per second)
 var alignment_threshold: float = 0.1  # Angle threshold to consider aligned with the player
 var shoot_cooldown: float = 0.5  # Cooldown between shots in seconds
+var angle_variance: float = 0.0  # Initial variance
 
 # Timer for shooting cooldown
 var cooldown_timer: Timer
@@ -55,19 +56,35 @@ func handle_active_state(delta: float) -> void:
 		# Stop patrolling
 		is_patrolling = false
 
-		# Calculate direction to the player
-		var direction_to_player = (player_ship.global_position - global_position).normalized().rotated(deg_to_rad(90))
-		target_angle = direction_to_player.angle()
+		# Get player's position and velocity
+		var player_position = player_ship.global_position
+		var player_velocity = player_ship.linear_velocity
 
-		# Smoothly rotate towards the player
+		# Predictive aiming: Calculate where the player will be
+		var bullet_speed = 300.0  # Match this to your actual bullet speed
+		var distance_to_player = global_position.distance_to(player_position)
+		
+		# Calculate travel time and clamp it to prevent overcompensation
+		var travel_time = distance_to_player / bullet_speed
+		travel_time = clamp(travel_time, 0, 1.0)  # Cap prediction to 1 second max
+
+		# Predict the future position
+		var predicted_position = player_position + player_velocity * travel_time
+
+		# Blend direct aiming and prediction to reduce overcompensation
+		var blending_factor = 0.75  # Adjust this value (0 = direct aim, 1 = full prediction)
+		var blended_position = player_position.lerp(predicted_position, blending_factor)
+
+		# Calculate direction to the blended position
+		var direction_to_blended_position = (blended_position - global_position).normalized().rotated(deg_to_rad(90))
+		target_angle = direction_to_blended_position.angle() + deg_to_rad(angle_variance)
+
+		# Smoothly rotate towards the blended target angle
 		rotation = lerp_angle(rotation, target_angle, rotation_speed * delta)
 
-		# Calculate distance to the player
-		var distance_to_player = global_position.distance_to(player_ship.global_position)
-
 		# If the player is far, move towards the player
-		if distance_to_player > 300:  # Replace 500 with the desired chasing distance
-			var movement_direction = (player_ship.global_position - global_position).normalized()
+		if distance_to_player > 300:  # Replace 300 with the desired chasing distance
+			var movement_direction = (player_position - global_position).normalized()
 			linear_velocity += movement_direction * acceleration * delta
 
 			# Limit the speed to prevent overshooting
@@ -77,6 +94,8 @@ func handle_active_state(delta: float) -> void:
 		if abs(rotation - target_angle) < alignment_threshold and cooldown_timer.is_stopped():
 			shoot_bullet()
 			cooldown_timer.start()
+
+
 
 # Handles logic when the enemy is patrolling
 func handle_patrol_state(delta: float) -> void:
@@ -138,6 +157,9 @@ func set_to_passive() -> void:
 func shoot_bullet() -> void:
 	var bullet_scene = preload("res://EnemyPDCbullet.tscn")
 	var bullet = bullet_scene.instantiate()
+	
+	# Update angle variance
+	angle_variance = randf_range(-7, 7)  # Update variance in degrees
 
 	bullet.add_to_group("EnemyBullet")
 	bullet.global_position = $Front.global_position
