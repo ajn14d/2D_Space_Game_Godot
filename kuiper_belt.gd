@@ -1,7 +1,7 @@
 extends StaticBody2D
 
 # Preload asteroid and enemy ship scenes
-var asteroid_scene = preload("res://asteroid.tscn")
+var asteroid_scene = preload("res://ice_asteroid.tscn")
 var enemy_ship_scene = preload("res://enemy_ship.tscn")
 
 @export var spawn_rate: float = 0.5  # Time in seconds between spawns
