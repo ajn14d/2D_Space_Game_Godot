@@ -17,7 +17,7 @@ func _integrate_forces(state: PhysicsDirectBodyState2D):
 		for body in rope_area.get_overlapping_bodies():
 			if body.is_in_group("Asteroids"):  # check group is hitchable
 				apply_gravity_rope_asteroid(state, body)  # Apply gravity to the asteroid
-				print("working")
+				#print("working")
 
 func apply_gravity_rope_asteroid(state: PhysicsDirectBodyState2D, asteroid):
 	# Calculate the direction from the asteroid to the rope
@@ -31,7 +31,7 @@ func apply_gravity_rope_asteroid(state: PhysicsDirectBodyState2D, asteroid):
 		# Apply the force to the asteroid
 		if asteroid is RigidBody2D:
 			asteroid.apply_central_force(gravity_force)
-			print("Gravity applied to asteroid at: ", asteroid.global_position)
+			#print("Gravity applied to asteroid at: ", asteroid.global_position)
 
 
 # Called every frame. 'delta' is the elapsed time since the previous frame.
@@ -45,4 +45,4 @@ func toggle_monitoring():
 	is_monitoring = !is_monitoring  # Toggle the monitoring state
 	rope_area.monitoring = is_monitoring  # Enable or disable collision monitoring on the Area2D
 	rope_collision_shape.disabled = !is_monitoring  # Disable or enable the CollisionShape2D's collision
-	print("Monitoring toggled: ", is_monitoring)  # Print current state for debugging
+	#print("Monitoring toggled: ", is_monitoring)  # Print current state for debugging

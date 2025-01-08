@@ -1,7 +1,7 @@
-[gd_scene load_steps=5 format=3 uid="uid://cudlvpxfi32gu"]
+[gd_scene load_steps=5 format=3 uid="uid://bgb7iu0n1bixx"]
 
-[ext_resource type="Script" path="res://asteroid.gd" id="1_04btk"]
-[ext_resource type="Texture2D" uid="uid://c8mt5i38xjc02" path="res://Art/asteroid.png.png" id="2_xls0x"]
+[ext_resource type="Script" path="res://ice_asteroid.gd" id="1_nsnxx"]
+[ext_resource type="Texture2D" uid="uid://dxmyvybxoto5c" path="res://Art/ice-asteroid.png.png" id="2_a8iai"]
 
 [sub_resource type="CircleShape2D" id="CircleShape2D_v5to0"]
 radius = 19.0263
@@ -15,7 +15,7 @@ collision_mask = 47
 mass = 0.01
 gravity_scale = 0.0
 linear_damp = 0.5
-script = ExtResource("1_04btk")
+script = ExtResource("1_nsnxx")
 
 [node name="AsteroidBody" type="CollisionShape2D" parent="."]
 visible = false
@@ -32,6 +32,4 @@ scale = Vector2(3, 3)
 shape = SubResource("CircleShape2D_krtgy")
 
 [node name="Sprite2D" type="Sprite2D" parent="."]
-position = Vector2(-0.25, -0.625001)
-scale = Vector2(0.323333, 0.298333)
-texture = ExtResource("2_xls0x")
+texture = ExtResource("2_a8iai")
