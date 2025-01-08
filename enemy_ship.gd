@@ -54,7 +54,6 @@ func handle_active_state(delta: float) -> void:
 	if player_ship:
 		# Stop patrolling
 		is_patrolling = false
-		linear_velocity = Vector2.ZERO
 
 		# Calculate direction to the player
 		var direction_to_player = (player_ship.global_position - global_position).normalized().rotated(deg_to_rad(90))
@@ -62,6 +61,17 @@ func handle_active_state(delta: float) -> void:
 
 		# Smoothly rotate towards the player
 		rotation = lerp_angle(rotation, target_angle, rotation_speed * delta)
+
+		# Calculate distance to the player
+		var distance_to_player = global_position.distance_to(player_ship.global_position)
+
+		# If the player is far, move towards the player
+		if distance_to_player > 300:  # Replace 500 with the desired chasing distance
+			var movement_direction = (player_ship.global_position - global_position).normalized()
+			linear_velocity += movement_direction * acceleration * delta
+
+			# Limit the speed to prevent overshooting
+			linear_velocity = linear_velocity.limit_length(max_speed)
 
 		# Shoot bullets when aligned with the player
 		if abs(rotation - target_angle) < alignment_threshold and cooldown_timer.is_stopped():

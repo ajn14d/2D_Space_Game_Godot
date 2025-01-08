@@ -10,7 +10,7 @@ radius = 12.0
 height = 58.0
 
 [sub_resource type="CircleShape2D" id="CircleShape2D_63eni"]
-radius = 615.43
+radius = 1165.65
 
 [sub_resource type="CircleShape2D" id="CircleShape2D_tuhem"]
 radius = 3.0
@@ -19,7 +19,7 @@ radius = 3.0
 radius = 3.0
 
 [sub_resource type="CircleShape2D" id="CircleShape2D_hsox8"]
-radius = 2447.09
+radius = 4179.03
 
 [node name="EnemyShip" type="RigidBody2D"]
 collision_layer = 2
@@ -42,6 +42,7 @@ shape = SubResource("CapsuleShape2D_ay6h6")
 collision_layer = 2
 
 [node name="CollisionShape2D" type="CollisionShape2D" parent="PlayerDetection"]
+visible = false
 self_modulate = Color(1, 1, 1, 0.180392)
 shape = SubResource("CircleShape2D_63eni")
 
@@ -60,6 +61,7 @@ shape = SubResource("CircleShape2D_we6lv")
 collision_layer = 2
 
 [node name="CollisionShape2D" type="CollisionShape2D" parent="StandbyDetection"]
+visible = false
 modulate = Color(1, 1, 1, 0.0745098)
 shape = SubResource("CircleShape2D_hsox8")
 
