@@ -69,35 +69,35 @@ position = Vector2(900000, 0)
 
 [node name="PlayerShip" parent="." instance=ExtResource("1_6tbk4")]
 z_index = 1
-position = Vector2(900000, -1100)
+position = Vector2(898022, -969)
 
 [node name="EnemyShip" parent="." instance=ExtResource("13_r28yu")]
 position = Vector2(190616, -5409)
 mass = 0.1
 
 [node name="MiningRigSmall" parent="." instance=ExtResource("6_u3coa")]
-position = Vector2(189631, -1659)
+position = Vector2(897765, -1060)
 
 [node name="Asteroid" parent="." instance=ExtResource("5_evvg3")]
-position = Vector2(189459, -1442)
+position = Vector2(898064, -1233)
 
 [node name="Asteroid3" parent="." instance=ExtResource("5_evvg3")]
-position = Vector2(189741, -1537)
+position = Vector2(898009, -1328)
 
 [node name="Asteroid4" parent="." instance=ExtResource("5_evvg3")]
-position = Vector2(189921, -1785)
+position = Vector2(897939, -1217)
 
 [node name="Asteroid5" parent="." instance=ExtResource("5_evvg3")]
-position = Vector2(190077, -1847)
+position = Vector2(898066, -1097)
 
 [node name="Asteroid6" parent="." instance=ExtResource("5_evvg3")]
-position = Vector2(189293, -1512)
+position = Vector2(897952, -1081)
 
 [node name="Asteroid2" parent="." instance=ExtResource("5_evvg3")]
-position = Vector2(189965, -1607)
+position = Vector2(898100, -1348)
 
 [node name="Trailer" parent="." instance=ExtResource("13_jjt72")]
-position = Vector2(189965, -1736)
+position = Vector2(898033, -1763)
 
 [node name="SunBypass" parent="." instance=ExtResource("17_qur5c")]
 position = Vector2(700, -34500)
@@ -7489,7 +7489,7 @@ position = Vector2(493461, 0)
 position = Vector2(491961, 0)
 
 [node name="PlayerStation" parent="." instance=ExtResource("19_b0lsq")]
-position = Vector2(189596, -2240)
+position = Vector2(897731, -1585)
 
 [node name="SolarStation" parent="." instance=ExtResource("20_dhxm3")]
 position = Vector2(22765, 2)
